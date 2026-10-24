@@ -43,6 +43,8 @@ function updateEditorMeta() {
   if (!lastFileName)
     $("#fileName").textContent =
       `untitled.${{ python: "py", cpp: "cpp", java: "java", javascript: "js" }[languageSelect.value] || "txt"}`;
+
+  $("#lineNumbers").scrollTop = codeInput.scrollTop;
 }
 function loadSample() {
   codeInput.value = samples[languageSelect.value] || samples.python;
@@ -249,6 +251,9 @@ $("#aboutButton").addEventListener("click", () => {
   );
 });
 codeInput.addEventListener("input", updateEditorMeta);
+codeInput.addEventListener("scroll", () => {
+  $("#lineNumbers").scrollTop = codeInput.scrollTop;
+});
 languageSelect.addEventListener("change", () => {
   lastFileName = "";
   updateEditorMeta();
