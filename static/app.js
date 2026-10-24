@@ -18,24 +18,8 @@ const samples = {
 const extensions = {
   py: "python",
   js: "javascript",
-  // jsx: "javascript",
-  // ts: "typescript",
-  // tsx: "typescript",
   cpp: "cpp",
-  // cc: "cpp",
-  // c: "c",
   java: "java",
-  // cs: "csharp",
-  // go: "go",
-  // rs: "rust",
-  // php: "php",
-  // rb: "ruby",
-  // swift: "swift",
-  // kt: "kotlin",
-  // sql: "sql",
-  // html: "html",
-  // css: "css",
-  // sh: "bash",
   txt: "other",
 };
 const languageNames = Object.fromEntries(
@@ -58,7 +42,7 @@ function updateEditorMeta() {
   $("#editorLanguage").textContent = languageSelect.value.toUpperCase();
   if (!lastFileName)
     $("#fileName").textContent =
-      `untitled.${{ python: "py", javascript: "js", typescript: "ts", cpp: "cpp", c: "c", java: "java" }[languageSelect.value] || "txt"}`;
+      `untitled.${{ python: "py", cpp: "cpp", java: "java", javascript: "js" }[languageSelect.value] || "txt"}`;
 }
 function loadSample() {
   codeInput.value = samples[languageSelect.value] || samples.python;
@@ -311,7 +295,7 @@ async function checkHealth() {
       $("#healthText").textContent = "API key needed";
       $("#healthDot").classList.add("offline");
       $("#healthText").title =
-        "Add OPENAI_API_KEY to .env to enable AI analysis.";
+        "Add OPENROUTER_API_KEY to .env to enable AI analysis.";
     }
   } catch {
     $("#healthText").textContent = "Server unavailable";

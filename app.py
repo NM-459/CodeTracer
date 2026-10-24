@@ -23,9 +23,7 @@ app.config["MAX_CONTENT_LENGTH"] = 1 * 1024 * 1024  # 1 MB request limit
 DEFAULT_MODEL = os.getenv("OPENAI_MODEL", "openrouter/free")
 MAX_CODE_CHARS = 50000
 SUPPORTED_LANGUAGES = {
-    "python", "javascript", "typescript", "java", "c", "cpp", "csharp",
-    "go", "rust", "php", "ruby", "swift", "kotlin", "sql", "html",
-    "css", "bash", "other"
+    "python", "cpp", "java", "javascript", "other"
 }
 
 def get_client() -> OpenAI | None:
@@ -55,7 +53,6 @@ def available_toolchain_check(code: str, language: str) -> dict[str, Any] | None
     """Compile-only checks for languages with an installed compiler; code is not run."""
     commands = {
         "cpp": ("g++", ["-std=c++17", "-fsyntax-only"]),
-        "c": ("gcc", ["-fsyntax-only"]),
         "java": ("javac", []),
     }
     if language not in commands:
@@ -65,7 +62,7 @@ def available_toolchain_check(code: str, language: str) -> dict[str, Any] | None
     if not binary:
         return None
 
-    suffix = {"cpp": ".cpp", "c": ".c", "java": ".java"}[language]
+    suffix = {"cpp": ".cpp", "java": ".java"}[language]
     # javac requires the file name to match a public class; compile checks are skipped
     # here for Java to avoid misleading results from arbitrary uploaded class names.
     if language == "java":
@@ -90,7 +87,7 @@ def available_toolchain_check(code: str, language: str) -> dict[str, Any] | None
             if not diagnostic:
                 return None
             # Compiler diagnostics may contain a temporary absolute path. Make them
-            # less noisy before showing them to the model/user.
+            # less noisy before showing them to the model.
             diagnostic = diagnostic.replace(str(source_path), "submitted" + suffix)
             return {
                 "kind": "compiler",
@@ -267,7 +264,7 @@ def analyze():
     client = get_client()
     if client is None:
         return jsonify({
-            "error": "AI analysis is not configured yet. Add your OPENAI_API_KEY to the .env file, restart the server, and try again.",
+            "error": "AI analysis is not configured yet. Add your OPENROUTER_API_KEY to the .env file, restart the server, and try again.",
             "code": "missing_api_key",
             "static_diagnostics": diagnostics
         }), 503

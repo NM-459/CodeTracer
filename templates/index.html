@@ -17,12 +17,14 @@
 <body>
   <div class="app-shell">
     <main class="main-content" id="workspace">
+
       <header class="topbar">
-        <a class="brand" href="/"><span class="brand-mark"><i></i><i></i><i></i></span><span>code<span
-              class="brand-light">trace</span></span></a>
-        <div class="topbar-right"><span class="status-dot" id="healthDot"></span><span id="healthText">Checking AI
-            connection…</span><button class="icon-button" id="aboutButton" aria-label="About CodeTrace"
-            title="About CodeTrace">i</button></div>
+        <a class="brand" href="/"><span class="brand-mark"><i></i><i></i><i></i></span><span>code<span class="brand-light">trace</span></span></a>
+        <div class="topbar-right">
+          <span class="status-dot" id="healthDot"></span>
+          <span id="healthText">Checking AI connection…</span>
+          <button class="icon-button" id="aboutButton" aria-label="About CodeTrace" title="About CodeTrace">i</button>
+        </div>
       </header>
 
       <section class="page-heading">
@@ -35,12 +37,14 @@
         <div class="heading-art" aria-hidden="true">
           <div class="art-orbit orbit-one"></div>
           <div class="art-orbit orbit-two"></div>
-          <div class="art-core">{ }</div><span class="art-spark spark-one">✳</span><span
-            class="art-spark spark-two">·</span>
+          <div class="art-core">{ }</div>
+          <span class="art-spark spark-one">✳</span>
+          <span class="art-spark spark-two">·</span>
         </div>
       </section>
 
       <section class="workspace-grid">
+
         <div class="panel input-panel">
           <div class="panel-header">
             <div>
@@ -48,41 +52,60 @@
               <h2>Share your code</h2>
             </div>
           </div>
-          <div class="field-row"><label for="language">Programming language</label>
-            <div class="select-wrap"><select id="language">
+
+          <div class="field-row">
+            <label for="language">Programming language</label>
+            <div class="select-wrap">
+              <select id="language">
                 <option value="python">Python</option>
                 <option value="cpp">C++</option>
                 <option value="java">Java</option>
                 <option value="javascript">JavaScript</option>
                 <option value="other">Other / not sure</option>
-              </select><span>⏷</span></div>
+              </select>
+              <span>⏷</span>
+            </div>
           </div>
-          <div class="code-label-row"><label for="codeInput">Source code</label>
-            <div class="mini-actions"><button id="loadExample" class="text-button">Load sample</button><label
-                class="text-button upload-label" for="fileInput">↑ Upload file</label><input id="fileInput" type="file"
-                accept=".py,.js,.jsx,.ts,.tsx,.cpp,.cc,.c,.h,.hpp,.java,.cs,.go,.rs,.php,.rb,.swift,.kt,.sql,.html,.css,.sh,.txt"
-                hidden></div>
+
+          <div class="code-label-row">
+            <label for="codeInput">Source code</label>
+            <div class="mini-actions">
+              <button id="loadExample" class="text-button">Load sample</button>
+              <label class="text-button upload-label" for="fileInput">↑ Upload file</label>
+              <input id="fileInput" type="file"
+                accept=".py,.cpp,.java,.js,.txt,"
+                hidden>
+            </div>
           </div>
+
           <div class="editor">
-            <div class="editor-topline"><span class="editor-file-dot"></span><span id="fileName">untitled.py</span><span
-                class="editor-language" id="editorLanguage">PYTHON</span></div>
+            <div class="editor-topline">
+              <span class="editor-file-dot"></span>
+              <span id="fileName">untitled.py</span>
+              <span class="editor-language" id="editorLanguage">PYTHON</span>
+            </div>
             <div class="editor-body">
-              <div class="editor-gutter" id="lineNumbers">1</div><textarea id="codeInput" spellcheck="false"
-                aria-label="Source code" autocapitalize="off"
+              <div class="editor-gutter" id="lineNumbers">1</div>
+              <textarea id="codeInput" spellcheck="false" aria-label="Source code" autocapitalize="off"
                 placeholder="Paste your code here."></textarea>
             </div>
-            <div class="editor-footer"><span>⌨ Tab inserts indentation</span><span id="lineCount">0 lines</span></div>
+            <div class="editor-footer">
+              <span>⌨ Tab inserts indentation</span>
+              <span id="lineCount">0 lines</span>
+            </div>
           </div>
-          <div class="field-row error-label-row"><label for="errorInput">Error message <span
-                class="optional">OPTIONAL</span></label><button class="text-button" id="clearError">Clear</button></div>
+
+          <div class="field-row error-label-row">
+            <label for="errorInput">Error message <span class="optional">OPTIONAL</span></label>
+            <button class="text-button" id="clearError">Clear</button>
+          </div>
           <textarea id="errorInput" class="error-input" rows="3"
             placeholder="If you have an error or traceback, paste it here. Otherwise leave this blank."></textarea>
+
           <div class="input-footer">
-         
             <button id="analyzeBtn" class="primary-button"><span>✦</span> Analyze my code <span
                 class="button-arrow">→</span></button>
           </div>
-          
         </div>
 
         <div class="panel right-panel" id="resultsPanel">
@@ -90,8 +113,10 @@
             <div>
               <div class="panel-kicker">STEP 02 <span>·</span> DIAGNOSIS</div>
               <h2>Analysis results</h2>
-            </div><span class="waiting-pill" id="resultStatus"><span class="waiting-dot"></span> Waiting for code</span>
+            </div>
+            <span class="waiting-pill" id="resultStatus"><span class="waiting-dot"></span> Waiting for code</span>
           </div>
+
           <div class="empty-state" id="emptyState">
             <div class="empty-illustration">
               <div class="empty-window">
@@ -106,57 +131,72 @@
             <h3>Your code, decoded.</h3>
             <p>Run an analysis to get likely issues, beginner-friendly explanations, test ideas, and a suggested fix.
             </p>
-            <!-- <div class="feature-points">
-              <div><span>01</span> Find likely issues</div>
-              <div><span>02</span> Understand the cause</div>
-              <div><span>03</span> Review a fix</div>
-            </div> -->
           </div>
+
           <div id="loadingState" class="loading-state hidden">
             <div class="loader"></div>
             <h3>Reading your code…</h3>
             <p>Looking for likely issues and useful tests.</p>
           </div>
+
           <div id="errorState" class="error-state hidden">
             <div class="error-state-icon">!</div>
             <h3>We couldn't complete the analysis</h3>
-            <p id="errorMessage">Check your setup and try again.</p><button id="retryBtn" class="secondary-button">Try
-              again</button>
+            <p id="errorMessage">Check your setup and try again.</p>
+            <button id="retryBtn" class="secondary-button">Try again</button>
           </div>
+
           <div id="results" class="results hidden">
             <div class="summary-row">
-              <div><span class="severity" id="statusLabel">ANALYSIS</span>
+              <div>
+                <span class="severity" id="statusLabel">ANALYSIS</span>
                 <h3 id="summaryText">Analysis summary</h3>
               </div>
-              <div class="confidence"><strong id="confidenceValue">—</strong><span>confidence</span></div>
+              <div class="confidence">
+                <strong id="confidenceValue">—</strong>
+                <span>confidence</span>
+              </div>
             </div>
+
             <div id="diagnosticsArea" class="diagnostics-area hidden"></div>
+
             <div class="issues-heading">
-              <h4>Findings</h4><span id="issueCount" class="count-pill">0</span>
+              <h4>Findings</h4>
+              <span id="issueCount" class="count-pill">0</span>
             </div>
             <div id="issuesList" class="issues-list"></div>
+
             <div class="test-block">
               <div class="test-head">
-                <h4>Suggested test cases</h4><span class="soft-tag">NOT EXECUTED</span>
+                <h4>Suggested test cases</h4>
+                <span class="soft-tag">NOT EXECUTED</span>
               </div>
               <div id="testsList" class="tests-list"></div>
             </div>
+
             <div class="fix-heading">
-              <h4>Suggested correction</h4><span class="fix-tag">REVIEW BEFORE USING</span>
+              <h4>Suggested correction</h4>
+              <span class="fix-tag">REVIEW BEFORE USING</span>
             </div>
             <p id="fixSummary" class="fix-summary"></p>
+
             <div class="comparison">
               <div class="code-card wrong">
-                <div class="code-card-head"><span>Original code</span><button id="copyOriginal"
-                    class="copy-button">Copy</button></div>
+                <div class="code-card-head">
+                  <span>Original code</span>
+                  <button id="copyOriginal" class="copy-button">Copy</button>
+                </div>
                 <pre id="originalCode"></pre>
               </div>
               <div class="code-card corrected">
-                <div class="code-card-head"><span>Suggested code</span><button id="copyFix"
-                    class="copy-button">Copy</button></div>
+                <div class="code-card-head">
+                  <span>Suggested code</span>
+                  <button id="copyFix" class="copy-button">Copy</button>
+                </div>
                 <pre id="fixedCode"></pre>
               </div>
             </div>
+
             <div class="result-disclaimer" id="limitations"></div>
             <button id="applyFix" class="primary-button apply-button">Use suggested code in editor <span
                 class="button-arrow">↑</span></button>
@@ -164,10 +204,14 @@
         </div>
       </section>
 
-      <footer><span>© 2026 CodeTrace</span><span>Built to help you learn, not just copy a fix.</span><a
-          href="#workspace">Back to top ↑</a></footer>
+      <footer>
+        <span>© 2026 CodeTrace</span>
+        <span>Built to help you learn, not just copy a fix.</span>
+        <a href="#workspace">Back to top ↑</a>
+      </footer>
     </main>
   </div>
+
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="{{ url_for('static', filename='app.js') }}" defer></script>
 </body>
