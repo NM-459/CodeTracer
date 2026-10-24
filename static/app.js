@@ -289,16 +289,16 @@ async function checkHealth() {
     const response = await fetch("/api/health");
     const data = await response.json();
     if (data.ai_configured) {
-      $("#healthText").textContent = `AI connected · ${data.model}`;
+      $("#checker").textContent = `AI connected · ${data.model}`;
       $("#healthDot").classList.add("online");
     } else {
-      $("#healthText").textContent = "API key needed";
+      $("#checker").textContent = "API key needed";
       $("#healthDot").classList.add("offline");
-      $("#healthText").title =
+      $("#checker").title =
         "Add OPENROUTER_API_KEY to .env to enable AI analysis.";
     }
   } catch {
-    $("#healthText").textContent = "Server unavailable";
+    $("#checker").textContent = "Server unavailable";
     $("#healthDot").classList.add("offline");
   }
 }

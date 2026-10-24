@@ -63,8 +63,6 @@ def available_toolchain_check(code: str, language: str) -> dict[str, Any] | None
         return None
 
     suffix = {"cpp": ".cpp", "java": ".java"}[language]
-    # javac requires the file name to match a public class; compile checks are skipped
-    # here for Java to avoid misleading results from arbitrary uploaded class names.
     if language == "java":
         return None
 
@@ -86,8 +84,6 @@ def available_toolchain_check(code: str, language: str) -> dict[str, Any] | None
             diagnostic = (completed.stderr or completed.stdout).strip()
             if not diagnostic:
                 return None
-            # Compiler diagnostics may contain a temporary absolute path. Make them
-            # less noisy before showing them to the model.
             diagnostic = diagnostic.replace(str(source_path), "submitted" + suffix)
             return {
                 "kind": "compiler",
